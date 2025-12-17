@@ -1,143 +1,78 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-
-    <link rel="stylesheet" href="./resources/ol.css">
-    <link rel="stylesheet" href="resources/fontawesome-all.min.css">
-    <link href="resources/photon-geocoder-autocomplete.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./resources/ol-layerswitcher.css">
-    <link rel="stylesheet" href="./resources/qgis2web.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friar Park LSOA Map</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
-        html, body {
-            height: 100%;
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
-            background-color: #ffffff;
+            padding: 0;
         }
 
-        /* qgis2web controls */
-        .ol-control > * {
-            background-color: #f8f8f8!important;
-            color: #444444!important;
-            border-radius: 0px;
-        }
-        .ol-attribution a,
-        .gcd-gl-input::placeholder,
-        .search-layer-input-search::placeholder {
-            color: #444444!important;
-        }
-        .search-layer-input-search {
-            background-color: #f8f8f8!important;
-        }
-        .ol-control > *:focus,
-        .ol-control >*:hover {
-            background-color: rgba(248, 248, 248, 0.7)!important;
-        }
-        .ol-control {
-            background-color: rgba(255,255,255,.4) !important;
-            padding: 2px !important;
+        h1 {
+            text-align: center;
+            margin-top: 20px;
         }
 
-        /* Layout */
-        #app {
+        .container {
             display: flex;
-            height: 100vh;
-            width: 100vw;
+            gap: 20px;
+            padding: 20px;
         }
 
-        /* Override qgis2web absolute positioning */
-        #map {
+        .map {
             flex: 2;
-            height: 100%;
-            position: relative !important;
+            height: 500px;
         }
 
-        #pdf-panel {
+        .side-image {
             flex: 1;
-            border-left: 1px solid #ccc;
-            background: #fff;
-            overflow: hidden;
         }
 
-        #pdf-panel iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Mobile */
-        @media (max-width: 900px) {
-            #app {
-                flex-direction: column;
-            }
-            #map {
-                height: 50vh;
-            }
-            #pdf-panel {
-                height: 50vh;
-            }
+        .side-image img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
         }
     </style>
-
-    <title>Friar Park LSOA IMD</title>
 </head>
-
 <body>
+    <h1>Friar Park LSOA Map</h1>
 
-<div id="app">
+    <div class="container">
+        <!-- Map Section -->
+        <div id="map" class="map"></div>
 
-    <div id="map">
-        <div id="popup" class="ol-popup">
-            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-            <div id="popup-content"></div>
+        <!-- Image Section -->
+        <div class="side-image">
+            <img src="WBLSAO.png" alt="Map Side Image">
         </div>
     </div>
 
-    <div id="pdf-panel">
-        <iframe
-            src="LSOAWESTBROMWICH.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH"
-            title="LSOA IMD Detail">
-        </iframe>
-    </div>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map and set the view to Friar Park coordinates
+        var map = L.map('map').setView([52.507, -1.983], 15); // Replace with your coordinates
 
-</div>
+        // Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
 
-<script src="resources/qgis2web_expressions.js"></script>
-<script src="./resources/functions.js"></script>
-<script src="./resources/ol.js"></script>
-<script src="./resources/ol-layerswitcher.js"></script>
-<script src="resources/photon-geocoder-autocomplete.min.js"></script>
-
-<script src="layers/WestBromwichBdgs_0.js"></script>
-<script src="layers/WestBromwichTown_1.js"></script>
-<script src="layers/WestBromwichRoads_2.js"></script>
-<script src="layers/WBLSAOMASTER_3.js"></script>
-
-<script src="styles/WestBromwichBdgs_0_style.js"></script>
-<script src="styles/WestBromwichTown_1_style.js"></script>
-<script src="styles/WestBromwichRoads_2_style.js"></script>
-<script src="styles/WBLSAOMASTER_3_style.js"></script>
-
-<script src="./layers/layers.js"></script>
-<script src="./resources/Autolinker.min.js"></script>
-<script src="./resources/qgis2web.js"></script>
-
-<script>
-    /* Ensure map resizes correctly in flex layout */
-    window.addEventListener('load', function () {
-        if (typeof map !== 'undefined') {
-            map.updateSize();
-        }
-    });
-</script>
-
+        // Optional: add a marker
+        L.marker([52.507, -1.983]).addTo(map)
+            .bindPopup('Friar Park LSOA')
+            .openPopup();
+    </script>
 </body>
 </html>
+
+
 
 
 
