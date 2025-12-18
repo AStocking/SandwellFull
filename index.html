@@ -86,6 +86,50 @@
             right: 8px;
         }
 
+        /* Info icon & popup */
+        #info-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2000;
+        }
+
+        #info-popup {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            width: 400px;
+            max-height: 80vh;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-y: auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 2000;
+        }
+
+        #info-popup-close {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
         /* Responsive for small screens */
         @media (max-width: 700px) {
             .container {
@@ -103,6 +147,38 @@
 
 <body>
 
+    <!-- Info Icon Button -->
+    <div id="info-button" title="Click for LSOA 019B Details">ℹ️</div>
+
+    <!-- Info Popup Container -->
+    <div id="info-popup">
+        <div id="info-popup-content">
+            <h3>📊 Demographics</h3>
+            <p>• Population profile: Sandwell overall has a younger-than-average population compared to England, with higher proportions of children and working-age adults. In LSOA 019B, this translates into large family households and a diverse ethnic mix, reflecting Sandwell’s significant South Asian and Black communities.</p>
+            <p>• Health outcomes: Residents experience poorer health indicators than national averages, with higher rates of long-term illness and disability. Life expectancy is below the England average, consistent with deprivation-linked health inequalities.</p>
+            <h3>🏠 Housing Types</h3>
+            <p>• Tenure: Housing in Sandwell 019B is dominated by social rented properties and lower-value private rentals, with fewer owner-occupied homes compared to national averages.</p>
+            <p>• Stock characteristics: Much of the housing stock is older terraced housing and low-rise flats, often requiring investment in energy efficiency. Fuel poverty is a notable issue, with many households struggling to afford adequate heating.</p>
+            <p>• Affordability pressures: House prices remain below regional averages, but low incomes mean affordability is still a challenge. Overcrowding is more common than in less deprived areas.</p>
+            <h3>💷 Income & Employment</h3>
+            <p>• Income deprivation: Sandwell 019B scores highly on the Income Deprivation Affecting Children Index (IDACI) and Income Deprivation Affecting Older People Index (IDAOPI), highlighting widespread low household incomes.</p>
+            <p>• Employment: Unemployment and economic inactivity are above national averages. Many residents are employed in low-wage sectors such as retail, warehousing, and health/social care.</p>
+            <p>• Worklessness: Long-term worklessness is a persistent issue, compounded by lower skills levels and limited access to higher-paid employment opportunities.</p>
+            <h3>📉 Economic Context</h3>
+            <p>• IMD 2025 ranking: Sandwell as a borough is ranked 19th most deprived local authority in England, and when judged by average rank, it is the 5th most deprived. LSOA 019B sits firmly within the bottom deciles nationally, reflecting concentrated disadvantage.</p>
+            <p>• Barriers to prosperity: Key challenges include limited access to quality jobs, lower educational attainment, and health inequalities.</p>
+            <p>• Local economy: While Sandwell benefits from proximity to Birmingham and the wider West Midlands economy, residents of 019B often face transport and skills barriers that restrict access to better-paid employment.</p>
+            <h3>🧩 Alignment with IMD Domains</h3>
+            <p>• Income & Employment: High deprivation due to low wages, unemployment, and reliance on benefits.</p>
+            <p>• Health: Poor health outcomes and higher disability prevalence.</p>
+            <p>• Education: Lower attainment and skills gaps compared to national averages.</p>
+            <p>• Housing & Living Environment: Older, less energy-efficient housing stock, overcrowding, and fuel poverty.</p>
+            <p>• Crime & Community Safety: Higher crime rates than national averages, contributing to overall deprivation scores.</p>
+            <p><strong>In summary:</strong> Sandwell 019B LSOA is characterized by low incomes, high unemployment, older social housing, and poorer health outcomes, all of which align with its classification in the most deprived deciles of the 2025 IMD. The area reflects the broader challenges facing Sandwell, where deprivation is persistent and multi-dimensional.</p>
+        </div>
+        <button id="info-popup-close">Close</button>
+    </div>
+
     <div class="container">
 
         <!-- Map + Title -->
@@ -119,7 +195,6 @@
 
         <!-- Static Image Reference -->
         <div class="side-image">
-            <!-- Use explicit relative path to ensure it always works -->
             <img src="./WBLSAO.png" alt="WB LSOA Map Reference">
         </div>
 
@@ -149,8 +224,32 @@
     <script src="./resources/Autolinker.min.js"></script>
     <script src="./resources/qgis2web.js"></script>
 
+    <!-- Info popup toggle script -->
+    <script>
+        const infoButton = document.getElementById('info-button');
+        const infoPopup = document.getElementById('info-popup');
+        const infoClose = document.getElementById('info-popup-close');
+
+        infoButton.addEventListener('click', () => {
+            infoPopup.style.display = 'block';
+        });
+
+        infoClose.addEventListener('click', () => {
+            infoPopup.style.display = 'none';
+        });
+
+        // Optional: close popup by clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === infoPopup) {
+                infoPopup.style.display = 'none';
+            }
+        });
+    </script>
+
 </body>
 </html>
+
+
 
 
 
