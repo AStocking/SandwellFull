@@ -22,7 +22,7 @@
             font-family: Arial, sans-serif;
         }
 
-        /* Flex container for map + image */
+        /* Main layout */
         .container {
             display: flex;
             height: 100vh;
@@ -31,7 +31,7 @@
             box-sizing: border-box;
         }
 
-        /* Wrapper for title + map */
+        /* Map + title */
         .map-wrapper {
             flex: 2;
             display: flex;
@@ -49,13 +49,12 @@
             margin-bottom: 5px;
         }
 
-        /* Map */
         #map {
             flex: 1;
             width: 100%;
         }
 
-        /* Image container */
+        /* Side image */
         .side-image {
             flex: 1;
             overflow-y: auto;
@@ -85,12 +84,28 @@
             top: 2px;
             right: 8px;
         }
+
+        /* Bottom centre credit image */
+        .bottom-credit {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+
+        .bottom-credit img {
+            max-width: 200px;
+            height: auto;
+            opacity: 0.9;
+        }
     </style>
 
     <title>Friar Park LSOA Map</title>
 </head>
 
 <body>
+
     <div class="container">
 
         <!-- Map + Title -->
@@ -110,6 +125,11 @@
             <img src="WBLSAO.png" alt="WB LSOA Map Reference">
         </div>
 
+    </div>
+
+    <!-- Bottom centre credit -->
+    <div class="bottom-credit">
+        <img src="UCREDIT.png" alt="Credit">
     </div>
 
     <!-- Scripts -->
@@ -138,6 +158,7 @@
 
 </body>
 </html>
+
 
 
 
